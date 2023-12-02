@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { loginUser } from '../api';
-
+import './LoginForm.css'; // Import stylów
 function LoginForm({ onLoginSuccess, onLoginFailure }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');

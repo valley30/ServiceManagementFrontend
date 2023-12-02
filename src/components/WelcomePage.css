@@ -1,0 +1,46 @@
+.welcome-container {
+    width: 80%;
+    margin: auto;
+}
+
+/* Styl dla paska wyszukiwania */
+.search-box input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 20px 0;
+    border: 2px solid white;
+    border-radius: 4px;
+    background-color: transparent;
+    color: white;
+}
+
+/* Styl dla menu */
+.menu {
+    background-color: black;
+    padding: 10px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+/* Styl tekstu w menu */
+.menu a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    display: inline-block;
+}
+
+.menu a:hover {
+    background-color: #555;
+}
+/* Dla paska wyszukiwania i top-bar */
+.top-bar {
+    position: fixed;
+    right: 0;
+    top: 0;
+    padding: 10px;
+}
+
+.search-box {
+    padding: 5px;
+}

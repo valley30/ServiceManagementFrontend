@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import LoginForm from './components/LoginForm';
+import WelcomePage from './components/WelcomePage';
+import SideMenu from './components/SideMenu';
+import './App.css';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -14,12 +17,14 @@ function App() {
 
   return (
       <div className="App">
+        {user && <SideMenu />}
+        <div className="top-bar">
+          {user && <input type="text" placeholder="Wyszukaj..." className="search-box" />}
+        </div>
         {!user && <LoginForm onLoginSuccess={handleLoginSuccess} onLoginFailure={handleLoginFailure} />}
         {user && (
-            <div>
-              <h1>Witaj, {user.username}!</h1>
-              {user.role === 'Admin' && <p>PANEL ADMIN</p>}
-              {/* Wyświetl informacje dla zalogowanego użytkownika */}
+            <div className="content">
+              <WelcomePage user={user} />
             </div>
         )}
       </div>

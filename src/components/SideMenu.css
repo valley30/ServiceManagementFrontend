@@ -1,0 +1,58 @@
+/* components/SideMenu.css */
+
+.side-menu {
+    width: 200px;
+    background-color: #333;
+    color: white;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    transition: all 0.3s ease;
+}
+
+.side-menu.closed {
+    width: 50px; /* Zmniejszona szerokość, gdy menu jest zwinięte */
+}
+
+.menu-items {
+    list-style: none;
+    padding: 0;
+    margin-top: 50px; /* Dostosuj według potrzeb */
+}
+
+.menu-items.hidden {
+    display: none;
+}
+
+.toggle-button {
+    background-color: #444;
+    border: none;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+}
+
+/* Styl pozycji w menu */
+.side-menu a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+}
+
+.side-menu a:hover {
+    background-color: #555;
+}
+
+/* Styl dla treści, aby uniknąć nakładania się na menu */
+.content {
+    margin-left: 200px; /* Dostosuj szerokość do szerokości SideMenu */
+    padding-top: 50px; /* Dostosuj, aby uniknąć nakładania się na top-bar */
+}
+
+/* Dodatkowe style dla SideMenu.css, aby ukryć tekst w zwiniętym menu */
+.side-menu.closed li a {
+    display: none;
+}
