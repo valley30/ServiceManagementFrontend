@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import LoginForm from './components/LoginForm';
 import WelcomePage from './components/WelcomePage';
 import SideMenu from './components/SideMenu';
 import './App.css';
+import axios from "axios";
 
 function App() {
-  const [user, setUser] = useState(null);
+    useEffect(() => {
+        const validateSession = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/api/auth/validate');
+                setUser(response.data);
+            } catch (error) {
+                console.log("Sesja wygasła lub użytkownik nie jest zalogowany.");
+            }
+        };
+
+        validateSession();
+    }, []);
+
+    const [user, setUser] = useState(null);
 
   const handleLoginSuccess = (userData) => {
     setUser(userData);
