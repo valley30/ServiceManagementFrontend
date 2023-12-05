@@ -1,10 +1,10 @@
 // components/SideMenu.js
 
 import React, { useState } from 'react';
-import './SideMenu.css'; // Zaimportuj odpowiedni plik stylów
+import './SideMenu.css';
 
-function SideMenu() {
-    const [isOpen, setIsOpen] = useState(true); // Stan określający, czy menu jest otwarte
+function SideMenu({ onLogout }) { // Dodajemy onLogout jako prop
+    const [isOpen, setIsOpen] = useState(true);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -19,8 +19,9 @@ function SideMenu() {
                 <li><a href="/strona1">Strona 1</a></li>
                 <li><a href="/strona2">Strona 2</a></li>
                 <li><a href="/strona3">Strona 3</a></li>
-                {/* Dodaj więcej pozycji w menu według potrzeb */}
+                {/* ... */}
             </ul>
+            <button onClick={onLogout}>Wyloguj się</button> {/* Używamy funkcji onLogout */}
         </div>
     );
 }

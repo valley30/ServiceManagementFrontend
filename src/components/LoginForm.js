@@ -8,10 +8,12 @@ function LoginForm({ onLoginSuccess, onLoginFailure }) {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
+// LoginForm.js
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
             const response = await loginUser(username, password);
+            localStorage.setItem('jwtToken', response.accessToken); // Zapisz token w Local Storage
             onLoginSuccess(response); // Wywołaj, gdy logowanie jest udane
         } catch (err) {
             setError("Logowanie nieudane.");
