@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import jwt_decode, {jwtDecode} from 'jwt-decode';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
+import DeviceForm from './components/DeviceForm';
 import LoginForm from './components/LoginForm';
 import WelcomePage from './components/WelcomePage';
 import SideMenu from './components/SideMenu';
@@ -58,27 +60,30 @@ function App() {
     };
 
     const handleLoginFailure = () => {
-    // Obsłuż nieudane logowanie
-  };
+        // Obsłuż nieudane logowanie
+    };
     const handleLogout = () => {
         localStorage.removeItem('jwtToken');
         setUser(null);
     };
-  return (
-      <div className="App">
-          {user && <SideMenu onLogout={handleLogout} />}
+    return (
+        <Router>
+            <div className="App">
+                {user && <SideMenu user={user} onLogout={handleLogout} />}
 
-        <div className="top-bar">
-          {user && <input type="text" placeholder="Wyszukaj..." className="search-box" />}
-        </div>
-        {!user && <LoginForm onLoginSuccess={handleLoginSuccess} onLoginFailure={handleLoginFailure} />}
-        {user && (
-            <div className="content">
-              <WelcomePage user={user} />
+                <div className="top-bar">
+                    {user && <input type="text" placeholder="Wyszukaj..." className="search-box" />}
+                </div>
+                <Routes>
+                    <Route path="/devices" element={<DeviceForm />} />
+                    {!user && <Route path="/" element={<LoginForm onLoginSuccess={handleLoginSuccess} onLoginFailure={handleLoginFailure} />} />}
+                    {user && <Route path="/" element={<WelcomePage user={user} />} />}
+                </Routes>
             </div>
-        )}
-      </div>
-  );
+        </Router>
+    );
+
 }
 
 export default App;
+
