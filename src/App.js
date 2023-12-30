@@ -1,11 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import jwt_decode, {jwtDecode} from 'jwt-decode';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route, Link, Navigate} from 'react-router-dom';
 
 import DeviceForm from './components/DeviceForm';
+import PartForm from './components/PartForm';
+import CustomerForm from './components/CustomerForm';
+import UserForm from './components/UserForm';
 import LoginForm from './components/LoginForm';
 import WelcomePage from './components/WelcomePage';
 import SideMenu from './components/SideMenu';
+import './App.css';
+
 import './App.css';
 import axios from "axios";
 // Możesz to zrobić na początku pliku App.js lub w dedykowanym pliku konfiguracyjnym Axios
@@ -66,6 +71,8 @@ function App() {
         localStorage.removeItem('jwtToken');
         setUser(null);
     };
+    const isAdmin = user && user.data.role === 'Admin';
+
     return (
         <Router>
             <div className="App">
@@ -75,12 +82,25 @@ function App() {
                     {user && <input type="text" placeholder="Wyszukaj..." className="search-box" />}
                 </div>
                 <Routes>
-                    <Route path="/devices" element={<DeviceForm />} />
-                    {!user && <Route path="/" element={<LoginForm onLoginSuccess={handleLoginSuccess} onLoginFailure={handleLoginFailure} />} />}
-                    {user && <Route path="/" element={<WelcomePage user={user} />} />}
+                    {!user ? (
+                        <Route path="/" element={<LoginForm onLoginSuccess={handleLoginSuccess} onLoginFailure={handleLoginFailure} />} />
+                    ) : (
+                        <>
+                            <Route path="/" element={<WelcomePage user={user} />} />
+                            {isAdmin && (
+                                <>
+                                    <Route path="/devices" element={<DeviceForm />} />
+                                    <Route path="/parts" element={<PartForm />} />
+                                    <Route path="/customers" element={<CustomerForm />} />
+                                    <Route path="/users" element={<UserForm />} />
+                                </>
+                            )}
+                        </>
+                    )}
                 </Routes>
             </div>
         </Router>
+
     );
 
 }
