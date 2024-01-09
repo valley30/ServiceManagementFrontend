@@ -25,6 +25,8 @@ function SideMenu({ user, onLogout }) {
                         <li><Link to="/users">Zarządzaj użytkownikami</Link></li>
                     </>
                 )}
+                <li><Link to="/new-report">Nowe zgłoszenie</Link></li>
+                <li><Link to="/new-repair">Nowa naprawa</Link></li>
                 {/* inne linki w menu */}
             </ul>
             <button onClick={onLogout}>Wyloguj się</button>

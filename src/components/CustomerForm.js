@@ -100,11 +100,6 @@ const CustomerForm = () => {
 
     const handleEditSubmit = async (e) => {
         e.preventDefault();
-        if (!editCustomer || Object.values(editCustomer).some(value => !validateInput(value))) {
-            alert("Pola muszą zawierać od 2 do 50 znaków.");
-            return;
-
-        }
         try {
             await axios.put(`http://localhost:8080/api/customers/modify/${editCustomer.customerID}`, editCustomer);
             setCustomers(customers.map(customer => customer.customerID === editCustomer.customerID ? editCustomer : customer));
@@ -191,7 +186,7 @@ const CustomerForm = () => {
             )}
 
 
-            {showEditForm && (
+            {showEditForm && editCustomer && (
                 <form onSubmit={handleEditSubmit}>
                         <div>
                             <label htmlFor="edit-firstName">Imię:</label>

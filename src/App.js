@@ -9,6 +9,10 @@ import UserForm from './components/UserForm';
 import LoginForm from './components/LoginForm';
 import WelcomePage from './components/WelcomePage';
 import SideMenu from './components/SideMenu';
+import NewReportForm from './components/ReportForm';
+import NewRepairForm from './components/RepairForm';
+import EditReportForm from './components/EditReportForm';
+import EditRepairForm from './components/EditRepairForm';
 import './App.css';
 
 import './App.css';
@@ -33,7 +37,7 @@ function App() {
         }
     };
     const [user, setUser] = useState(null);
-// App.js
+
     useEffect(() => {
         const token = localStorage.getItem('jwtToken');
         if (token && isTokenValid(token)) {
@@ -84,6 +88,7 @@ function App() {
                 <Routes>
                     {!user ? (
                         <Route path="/" element={<LoginForm onLoginSuccess={handleLoginSuccess} onLoginFailure={handleLoginFailure} />} />
+
                     ) : (
                         <>
                             <Route path="/" element={<WelcomePage user={user} />} />
@@ -95,6 +100,10 @@ function App() {
                                     <Route path="/users" element={<UserForm />} />
                                 </>
                             )}
+                            <Route path="/new-repair" element={<NewRepairForm user={user} />} />
+                            <Route path="/new-report" element={<NewReportForm user={user} />} />
+                            <Route path="/edit-report/:reportId" element={<EditReportForm user={user} />} />
+                            <Route path="/edit-repair/:repairId" element={<EditRepairForm user={user} />} />
                         </>
                     )}
                 </Routes>

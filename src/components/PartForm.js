@@ -95,10 +95,6 @@ const PartForm = () => {
 
     const handleEditSubmit = async (e) => {
         e.preventDefault();
-        if (!validateInput(editPart.name) || !validateInput(editPart.price.toString())) {
-            alert("Pola muszą zawierać od 2 do 50 znaków.");
-            return;
-        }
         try {
             await axios.put(`http://localhost:8080/api/parts/modify/${editPart.partID}`, editPart);
             setParts(parts.map(part => part.partID === editPart.partID ? editPart : part));

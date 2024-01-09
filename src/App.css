@@ -24,3 +24,82 @@
   padding: 5px 10px;
   cursor: pointer;
 }
+/* Main container for the date picker, making sure it doesn't expand too much */
+.react-datepicker {
+  font-size: 0.8rem; /* Adjust the font size as needed */
+  width: auto; /* Auto width to only take as much space as needed */
+  border: 1px solid #ccc; /* Add a border if you like */
+  border-radius: 0.3rem; /* Optional: rounded corners */
+  background-color: #fff; /* White background to stand out from the form */
+}
+
+/* Adjust the positioning of the calendar pop-up */
+.react-datepicker-popper {
+  z-index: 10; /* Ensure it's on top of other elements */
+}
+
+/* Adjust the header of the date picker */
+.react-datepicker__header {
+  background-color: #f0f0f0; /* Light gray background */
+  border-bottom: none; /* No border at the bottom */
+}
+
+/* Adjust the navigation between months */
+.react-datepicker__navigation {
+  top: 10px; /* Adjust the top position to center */
+}
+
+/* Adjust the size and spacing of the date picker grid */
+.react-datepicker__month {
+  margin: 0.4rem; /* Adjust the margin around the grid */
+}
+
+/* Adjust the day size */
+.react-datepicker__day, .react-datepicker__day-name {
+  width: 1.5rem; /* Make day squares smaller */
+  line-height: 1.5rem; /* Adjust the line height to vertically center text in the square */
+  margin: 0.166rem; /* Add some space between day squares */
+}
+
+/* Adjust the current day highlight */
+.react-datepicker__day--today {
+  font-weight: bold; /* Make the current day bold */
+}
+
+/* Adjust the selected day highlight */
+.react-datepicker__day--selected {
+  background-color: #0066cc; /* Change the background color for the selected day */
+  color: white; /* Change the text color to white for the selected day */
+}
+
+/* Adjust the time list */
+.react-datepicker__time-list {
+  width: auto; /* Adjust the width as needed, or keep it auto */
+  height: 100px; /* Smaller height to shrink the scrollable area */
+}
+
+/* Adjust the individual time list items */
+.react-datepicker__time-list-item {
+  padding: 5px; /* Add padding to each time list item for easier click */
+}
+
+/* Adjust the input field for the date */
+.react-datepicker__input-container input {
+  background-color: #fff; /* White background for the input */
+  cursor: pointer; /* Change cursor to indicate it's selectable */
+  width: 150px; /* Set a fixed width to match your design requirements */
+  text-align: center; /* Center the text */
+  border: 1px solid #ced4da; /* Add a border similar to other form inputs */
+  padding: 0.375rem 0.75rem; /* Padding to match your other form inputs */
+  border-radius: 0.25rem; /* Optional: rounded corners to match your design */
+}
+
+/* Hide the input field's default calendar icon if needed */
+.react-datepicker__input-container input[type='text']::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+/* Optional: Custom trigger button for the date picker */
+.custom-datepicker-trigger {
+  /* Add your styles for the custom trigger button here */
+}

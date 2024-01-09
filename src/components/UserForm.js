@@ -107,17 +107,17 @@ const UserForm = () => {
         e.preventDefault();
         const updatedUserData = {};
 
-        if (editUser.username !== newUserData.username) {
-            updatedUserData.username = newUserData.username;
+        if (editUser.username && editUser.username.trim() !== "") {
+            updatedUserData.username = editUser.username;
         }
-        if (newPassword) {
+        if (newPassword && newPassword.trim() !== "") {
             updatedUserData.password = newPassword;
         }
-        if (editUser.email !== newUserData.email) {
-            updatedUserData.email = newUserData.email;
+        if (editUser.email && editUser.email.trim() !== "") {
+            updatedUserData.email = editUser.email;
         }
-        if (editUser.role !== newUserData.role) {
-            updatedUserData.roleName = newUserData.role; // Dodano zmianę roli
+        if (editUser.role && editUser.role.trim() !== "") {
+            updatedUserData.role = editUser.role; // Ensure this matches your API's expected field name
         }
 
         try {
@@ -125,11 +125,12 @@ const UserForm = () => {
             setEditUser(null);
             setNewPassword('');
             setNewUserData({ username: '', password: '', email: '', role: '' });
-            // Opcjonalnie odśwież listę użytkowników
+            // Optionally refresh the user list
         } catch (error) {
-            console.error('Błąd podczas aktualizacji użytkownika:', error);
+            console.error('Error while updating user:', error);
         }
     };
+
 
     const deleteUser = async (userId) => {
         if (window.confirm("Czy na pewno chcesz usunąć tego użytkownika?")) {
@@ -205,29 +206,47 @@ const UserForm = () => {
 
             {showEditForm && editUser && (
                 <form onSubmit={handleEditSubmit}>
-                    {/* Pola formularza do edycji */}
-                    <input
-                        type="text"
-                        placeholder="Nazwa użytkownika"
-                        value={editUser.username}
-                        onChange={(e) => setEditUser({ ...editUser, username: e.target.value })}
-                    />
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        value={editUser.email}
-                        onChange={(e) => setEditUser({ ...editUser, email: e.target.value })}
-                    />
-                    <input
-                        type="password"
-                        placeholder="Nowe hasło"
-                        value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)}
-                    />
+                    <div>
+                        <label htmlFor="edit-username">Nazwa użytkownika:</label>
+                        <input
+                            type="text"
+                            id="edit-username"
+                            value={editUser.username}
+                            onChange={(e) => setEditUser({ ...editUser, username: e.target.value })}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="edit-email">Email:</label>
+                        <input
+                            type="email"
+                            id="edit-email"
+                            value={editUser.email}
+                            onChange={(e) => setEditUser({ ...editUser, email: e.target.value })}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="edit-password">Nowe hasło:</label>
+                        <input
+                            type="password"
+                            id="edit-password"
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="edit-role">Rola:</label>
+                        <select
+                            id="edit-role"
+                            value={editUser.role}
+                            onChange={(e) => setEditUser({ ...editUser, role: e.target.value })}
+                        >
+                            <option value="Admin">Admin</option>
+                            <option value="User">Użytkownik</option>
+                        </select>
+                    </div>
                     <button type="submit">Zapisz zmiany</button>
                 </form>
             )}
-
             <div className="header-container">
                 <h2>Lista Użytkowników</h2>
                 <button onClick={() => setShowAddForm(!showAddForm)} className="add-button">
@@ -246,7 +265,7 @@ const UserForm = () => {
                 <tr>
                     <th onClick={() => sortData('username')}>Nazwa:</th>
                     <th onClick={() => sortData('email')}>Email:</th>
-                    <th>Akcje</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>

@@ -95,10 +95,6 @@ const DeviceForm = () => {
 
     const handleEditSubmit = async (e) => {
         e.preventDefault();
-        if (!newDevice || Object.values(newDevice).some(value => !validateInput(value))){
-            alert("Pola muszą zawierać od 2 do 50 znaków. ");
-            return;
-        }
         try {
             await axios.put(`http://localhost:8080/api/devices/modify/${editDevice.deviceID}`, editDevice);
             setDevices(devices.map(device => device.deviceID === editDevice.deviceID ? editDevice : device));
@@ -172,7 +168,7 @@ const DeviceForm = () => {
                 </form>
             )}
 
-            {showEditForm && (
+            {showEditForm && editDevice && (
                 <form onSubmit={handleEditSubmit}>
                     <div>
                         <label htmlFor="type">Typ:</label>
