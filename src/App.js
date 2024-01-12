@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import jwt_decode, {jwtDecode} from 'jwt-decode';
 import {BrowserRouter as Router, Routes, Route, Link, Navigate} from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import DeviceForm from './components/DeviceForm';
 import PartForm from './components/PartForm';
