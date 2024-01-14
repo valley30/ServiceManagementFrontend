@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './form.css';
-
+import { faUserPlus, faUserMinus,faUserPen} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const UserForm = () => {
     const [users, setUsers] = useState([]);
     const [newUserData, setNewUserData] = useState({
@@ -154,7 +155,7 @@ const UserForm = () => {
     }
 
     return (
-        <div>
+        <div className="form-container">
 
 
             {showAddForm && (
@@ -249,9 +250,7 @@ const UserForm = () => {
             )}
             <div className="header-container">
                 <h2>Lista Użytkowników</h2>
-                <button onClick={() => setShowAddForm(!showAddForm)} className="add-button">
-                    {showAddForm ? "Ukryj" : <img src="/path/to/plus-icon.png" alt="Dodaj" />}
-                </button>
+
                 <input
                     type="text"
                     placeholder="Szukaj..."
@@ -259,8 +258,11 @@ const UserForm = () => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="search-input"
                 />
+                <button onClick={() => setShowAddForm(!showAddForm)} className="add-button">
+                    {showAddForm ? "Ukryj" : <FontAwesomeIcon icon={faUserPlus} alt="Dodaj" /> }
+                </button>
             </div>
-            <table>
+            <table className="form-container">
                 <thead>
                 <tr>
                     <th onClick={() => sortData('username')}>Nazwa:</th>
@@ -275,10 +277,10 @@ const UserForm = () => {
                         <td>{user.email}</td>
                         <td>
                             <button onClick={() => handleEditButtonClick(user.userID)}>
-                                {editUserId === user.userID && showEditForm ? "Ukryj" : "Modyfikuj"}
+                                {editUserId === user.userID && showEditForm ? "Ukryj" : <FontAwesomeIcon icon={faUserPen} alt="Modyfikuj"/>}
                             </button>
                             <button onClick={() => deleteUser(user.userID)}>
-                                <img src="/path/to/bin.png" alt="Usuń" />
+                                <FontAwesomeIcon icon={faUserMinus}alt="Usuń" />
                             </button>
                         </td>
                     </tr>

@@ -1,0 +1,73 @@
+.repairs-container {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+
+}
+
+.repairs-container h2 {
+    margin-bottom: 20px;
+}
+
+.filters {
+    margin-bottom: 20px;
+}
+
+.filters input {
+    margin-left: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.column-toggles {
+    margin-bottom: 20px;
+}
+
+.column-toggles label {
+    margin-right: 15px;
+    font-size: 14px;
+}
+
+.repairs-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.repairs-table th, .repairs-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+
+
+
+
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.pagination .page-item {
+    margin: 0 5px;
+}
+
+.pagination .page-link {
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.pagination .page-link:hover {
+    background-color: #f2f2f2;
+}
+
+/* Add more CSS as needed for other elements */

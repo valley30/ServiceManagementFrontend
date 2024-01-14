@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './form.css';
+import {  faPersonCirclePlus,faTrashCan} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 const CustomerForm = () => {
     const [customers, setCustomers] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
@@ -234,9 +237,6 @@ const CustomerForm = () => {
             {/* Tabela klientów */}
             <div className="header-container">
                 <h2>Lista Klientów</h2>
-                <button onClick={() => setShowAddForm(!showAddForm)} className="add-button">
-                    {showAddForm ? "Ukryj" : <img src="/path/to/plus-icon.png" alt="Dodaj" />}
-                </button>
                 <input
                     type="text"
                     placeholder="Szukaj..."
@@ -244,6 +244,10 @@ const CustomerForm = () => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="search-input"
                 />
+                <button onClick={() => setShowAddForm(!showAddForm)} className="add-button">
+                    {showAddForm ? "Ukryj" : <FontAwesomeIcon icon={faPersonCirclePlus}  alt="Dodaj" />}
+                </button>
+
             </div>
             <table>
                 <thead>
@@ -252,7 +256,7 @@ const CustomerForm = () => {
                     <th onClick={() => sortData('lastName')}>Nazwisko</th>
                     <th onClick={() => sortData('email')}>Email</th>
                     <th onClick={() => sortData('phoneNumber')}>Numer Telefonu</th>
-                    <th>Akcje</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -267,7 +271,7 @@ const CustomerForm = () => {
                                 {editCustomerId === customer.customerID && showEditForm ? "Ukryj" : "Modyfikuj"}
                             </button>
                             <button onClick={() => deleteCustomer(customer.customerID)}>
-                                <img src="/path/to/bin.png" alt="Usuń" />
+                                <FontAwesomeIcon icon={faTrashCan} alt="Usuń" />
                             </button>
                         </td>
                     </tr>

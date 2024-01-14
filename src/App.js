@@ -13,7 +13,15 @@ import SideMenu from './components/SideMenu';
 import NewReportForm from './components/ReportForm';
 import NewRepairForm from './components/RepairForm';
 import EditReportForm from './components/EditReportForm';
-import EditRepairForm from './components/EditRepairForm';
+import EditRepairForm from './components/EditRepairForm'
+import RepairManagement from './components/RepairManagement';
+import ReportManagement from './components/ReportManagement';
+import MyRepairs from './components/MyRepairs';
+import MyReports from './components/MyReports';
+import Repairs from './components/Repairs';
+import Reports from './components/Reports';
+import Stats from './components/Stats';
+
 import './App.css';
 
 import './App.css';
@@ -70,7 +78,7 @@ function App() {
     };
 
     const handleLoginFailure = () => {
-        // Obsłuż nieudane logowanie
+
     };
     const handleLogout = () => {
         localStorage.removeItem('jwtToken');
@@ -99,12 +107,19 @@ function App() {
                                     <Route path="/parts" element={<PartForm />} />
                                     <Route path="/customers" element={<CustomerForm />} />
                                     <Route path="/users" element={<UserForm />} />
+                                    <Route path="/report-management" element={<ReportManagement />} />
+                                    <Route path="/repair-management" element={<RepairManagement />} />
+                                    <Route path="/stats" element={<Stats />} />
                                 </>
                             )}
                             <Route path="/new-repair" element={<NewRepairForm user={user} />} />
                             <Route path="/new-report" element={<NewReportForm user={user} />} />
                             <Route path="/edit-report/:reportId" element={<EditReportForm user={user} />} />
                             <Route path="/edit-repair/:repairId" element={<EditRepairForm user={user} />} />
+                            <Route path="/my-repairs" element={<MyRepairs user={user} />} />
+                            <Route path="/my-reports" element={<MyReports user={user} />} />
+                            <Route path="/repairs" element={<Repairs />} />
+                            <Route path="/reports" element={<Reports />} />
                         </>
                     )}
                 </Routes>

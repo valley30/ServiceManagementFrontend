@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './form.css';
 import './Reportform.css'
+import { faUserPlus, faUserMinus,faUserPen} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {useNavigate} from "react-router-dom";
 const ReportForm = ({ user }) => {
     const [customers, setCustomers] = useState([]);

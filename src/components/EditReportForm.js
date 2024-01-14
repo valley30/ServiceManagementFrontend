@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { faUserPlus, faUserMinus,faUserPen} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const EditReportForm = () => {

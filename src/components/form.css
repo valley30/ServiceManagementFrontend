@@ -25,3 +25,10 @@
     padding: 5px 10px;
     cursor: pointer;
 }
+.form-container{
+    min-width: 500px;
+}
+.table-container{
+    min-width:500px ;
+    min-height: 300px;
+}

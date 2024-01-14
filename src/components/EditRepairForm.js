@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import DatePicker from 'react-datepicker';
+import { faUserPlus, faUserMinus,faUserPen} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -277,6 +278,7 @@ const EditRepairForm = () => {
                             type="number"
                             name="price"
                             className="form-control"
+                            placeholder={totalPartsPrice}
                             onChange={handleChange}
                             readOnly={readOnly}
                         />
