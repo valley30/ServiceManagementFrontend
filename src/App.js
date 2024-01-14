@@ -21,10 +21,9 @@ import MyReports from './components/MyReports';
 import Repairs from './components/Repairs';
 import Reports from './components/Reports';
 import Stats from './components/Stats';
-
+import Logout from './components/Logout';
 import './App.css';
 
-import './App.css';
 import axios from "axios";
 // Możesz to zrobić na początku pliku App.js lub w dedykowanym pliku konfiguracyjnym Axios
 axios.interceptors.request.use((config) => {
@@ -83,6 +82,7 @@ function App() {
     const handleLogout = () => {
         localStorage.removeItem('jwtToken');
         setUser(null);
+
     };
     const isAdmin = user && user.data.role === 'Admin';
 
@@ -100,6 +100,8 @@ function App() {
 
                     ) : (
                         <>
+                            <Route path="/logout" element={<Logout onLogout={handleLogout} />} />
+
                             <Route path="/" element={<WelcomePage user={user} />} />
                             {isAdmin && (
                                 <>
@@ -107,8 +109,8 @@ function App() {
                                     <Route path="/parts" element={<PartForm />} />
                                     <Route path="/customers" element={<CustomerForm />} />
                                     <Route path="/users" element={<UserForm />} />
-                                    <Route path="/report-management" element={<ReportManagement />} />
-                                    <Route path="/repair-management" element={<RepairManagement />} />
+                                    <Route path="/report-management" element={<Repairs />} />
+                                    <Route path="/repair-management" element={<Reports />} />
                                     <Route path="/stats" element={<Stats />} />
                                 </>
                             )}

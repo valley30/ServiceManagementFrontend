@@ -248,7 +248,7 @@ const EditRepairForm = () => {
                                     {repairPart.part.name} - {repairPart.part.price} PLN &
                                     <button
                                         className="btn btn-danger btn-sm"
-                                        onClick={() => removePartFromRepair(repairPart.repairPartID, repairPart.part.id)}
+                                        onClick={() => removePartFromRepair(repairPart.repairPartID, repairPart.part.id)} disabled={readOnly}
                                     >
                                         Usuń
                                     </button>
@@ -259,7 +259,7 @@ const EditRepairForm = () => {
                         <button
                             type="button"
                             className="btn btn-outline-primary"
-                            onClick={openPartsModal}
+                            onClick={openPartsModal} disabled={readOnly}
                         >
                             Dodaj części
                         </button>

@@ -1,0 +1,145 @@
+.react-datepicker {
+    font-size: 0.9rem;
+    background-color: white;
+
+}
+
+.react-datepicker__header {
+    background-color: white;
+    border-bottom: none;
+}
+
+.react-datepicker__current-month,
+.react-datepicker-time__header,
+.react-datepicker-year-header {
+    color: black;
+    background-color: white;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+    color: black;
+    background-color: white;
+
+
+
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected,
+.react-datepicker__day--in-selecting-range,
+.react-datepicker__day--in-range {
+    background-color: white;
+    color: black;
+}
+
+.react-datepicker__day--outside-month {
+    color: #aaa;
+    background-color: white;
+}
+.react-datepicker__navigation--previous {
+    border-right-color: #333;
+    background-color: black;
+}
+
+.react-datepicker__navigation--next {
+    border-left-color: #333;
+    background-color: black;
+}
+
+/* Przyciski nawigacyjne dla miesięcy i lat */
+.react-datepicker__navigation {
+    top: 20px;
+
+}
+
+/* Tło dla zaznaczonego dnia */
+.react-datepicker__day--selected {
+    background-color: #007bff;
+}
+
+/* Tło dla dnia na który najechaliśmy myszką */
+.react-datepicker__day--hovered {
+    background-color: #e9ecef;
+}
+
+/* Styl dla wybranego zakresu dat */
+.react-datepicker__day--in-range,
+.react-datepicker__day--in-selecting-range {
+    background-color: #e9ecef;
+}
+
+/* Styl dla daty początkowej i końcowej zakresu */
+.react-datepicker__day--in-range:not(.react-datepicker__day--in-selecting-range),
+.react-datepicker__day--in-selecting-range:not(.react-datepicker__day--in-range) {
+    background-color: #dee2e6;
+}
+
+/* Usunięcie paddingu dla większej kompaktowości */
+.react-datepicker__month-container {
+    padding: 10px;
+}
+
+/* Drobniejsze korekty marginesów dla wyświetlania dni */
+.react-datepicker__week {
+    margin-bottom: 0.25rem;
+}
+
+.react-datepicker__day,
+.react-datepicker__day-name {
+    margin: 0.166rem;
+}
+
+/* Usunięcie domyślnych obramowań wokół elementów focus */
+.react-datepicker__day:focus,
+.react-datepicker__day-name:focus,
+.react-datepicker__navigation:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* Dla obecnie wybranego dnia */
+.react-datepicker__day--today {
+    font-weight: bold;
+}
+
+/* Styl dla daty z wydarzeniem */
+.react-datepicker__day--highlighted {
+    background-color: #89cff0;
+    color: #000;
+
+    border-radius: 0.3rem;
+}
+
+/* Dla dni, które są niedostępne do wyboru */
+.react-datepicker__day--disabled {
+    color: #ccc;
+}
+
+/* Ukrycie kropek które pojawiają się w liście */
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+    list-style-type: none;
+}
+
+/* Dodatkowe style jeśli potrzebujesz dostosować wygląd dla konkretnych dni tygodnia, np. weekendy */
+.react-datepicker__day--weekend {
+    color: #d9534f;
+}
+
+/* Jeśli używasz opcji pokazywania tygodni, możesz je również dostosować */
+.react-datepicker__week-number {
+    color: #333;
+    margin-right: 0.75rem;
+}
+
+/* W przypadku dostosowywania wyglądu przycisków z przesuwaniem miesięcy /
+.react-datepicker__navigation--previous,
+.react-datepicker__navigation--next {
+width: 30px;
+height: 30px;
+border: none; / Usunięcie domyślnego obramowania /
+background: none; / Usunięcie tła /
+top: 10px; */

@@ -40,7 +40,7 @@ function SideMenu({ user, onLogout }) {
                 <li><Link to="/my-reports"><FontAwesomeIcon icon={faBug} /> {isOpen && ' Moje zgłoszenia '}</Link></li>
                 {/* inne linki w menu */}
             </ul>
-            <button className="logoff" onClick={onLogout}><FontAwesomeIcon icon={faPowerOff} /> {isOpen && ' Wyloguj się '}</button>
+            <button className="logoff"  onClick={onLogout}><FontAwesomeIcon icon={faPowerOff} /> {isOpen && ' Wyloguj się '}</button>
         </div>
     );
 }

@@ -23,7 +23,7 @@ const Repairs = () => {
         customerId: true
     });
     const columnDisplayNames = {
-        repairId: 'ID Naprawy',
+        repairId: 'Numer naprawy',
         status: 'Status',
         startDate: 'Data rozpoczęcia',
         endDate: 'Data zakończenia',
@@ -171,7 +171,7 @@ const Repairs = () => {
                 <thead>
                 <tr>
 
-                    {displayedColumns.repairId &&  <th onClick={() => sortData('repairID')}>ID Naprawy</th>}
+                    {displayedColumns.repairId &&  <th onClick={() => sortData('repairID')}>Numer Naprawy</th>}
                     {displayedColumns.status && <th onClick={() => sortData('status')}>Status</th>}
                     {displayedColumns.startDate && <th onClick={() => sortData('startDate')}>Data rozpoczęcia</th>}
                     {displayedColumns.endDate && <th onClick={() => sortData('endDate')}>Data zakończenia</th>}

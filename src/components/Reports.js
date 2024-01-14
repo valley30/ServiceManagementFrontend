@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSort, faFilter } from '@fortawesome/free-solid-svg-icons';
-/*import './reports.css';*/
+
 
 const Reports = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -29,12 +27,12 @@ const Reports = () => {
         clientDescription: 'Opis',
         customerId: 'Klient',
         userId: 'Technik'
-        // Add more mappings as needed
+
     };
 
-    // ... Similar fetchCustomerName and fetchTechnicianName functions as in Repairs.js
+
     const [filters, setFilters] = useState({});
-    // ... (Other existing states)
+
     const fetchCustomerName = async (customerId) => {
         try {
             const response = await axios.get(`http://localhost:8080/api/customers/${customerId}`);
@@ -54,7 +52,7 @@ const Reports = () => {
         }
     };
 
-    // Fetch reports with additional data (like customer's name and technician's username)
+
     useEffect(() => {
         const fetchReports = async () => {
             try {
@@ -85,14 +83,12 @@ const Reports = () => {
         setReports(sortedReports);
     };
 
-    // Function to handle column display toggle
+
     const toggleColumnDisplay = (column) => {
         setDisplayedColumns(prevState => ({ ...prevState, [column]: !prevState[column] }));
     };
 
-    // Function to handle filters
 
-    // Apply filters to repairs
 
     const formatDate = (dateString) => {
         if (!dateString) return '';
@@ -109,10 +105,10 @@ const Reports = () => {
     for (let i = 1; i <= Math.ceil(reports.length / reportsPerPage); i++) {
         pageNumbers.push(i);
     }
-    // ... Sorting, filtering, and pagination logic (similar to Repairs.js)
 
 
-    // Function to handle filters
+
+
     const handleFilterChange = (e, filterKey) => {
         setFilters({ ...filters, [filterKey]: e.target.value });
     };
@@ -120,7 +116,7 @@ const Reports = () => {
     return (
         <div className="reports-container">
             <h2>Lista Zgłoszeń</h2>
-            {/* Column toggle checkboxes */}
+
             <div className="column-toggles">
                 {Object.keys(displayedColumns).map(column => (
                     <label key={column}>
@@ -153,7 +149,7 @@ const Reports = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {/* Render rows based on displayedColumns state */}
+
                 {currentReports.map(report => (
 
                     <tr key={report.reportId}>

@@ -23,7 +23,7 @@ function LoginForm({ onLoginSuccess, onLoginFailure }) {
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="form-login">
                 <input
                     type="text"
                     value={username}
