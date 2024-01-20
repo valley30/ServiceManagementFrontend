@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { faUserPlus, faUserMinus,faUserPen} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -21,14 +20,14 @@ const EditRepairForm = () => {
         parts: [],
         device: '',
         customerId: '',
-        customerName: '', // Nazwa klienta
+        customerName: '',
     });
     const [devicesList, setDevicesList] = useState([]);
     const [partsList, setPartsList] = useState([]);
     const [selectedPartsToAdd, setSelectedPartsToAdd] = useState([]);
     const [readOnly, setReadOnly] = useState(false);
     const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
-    const [naprawaZapisana, setNaprawaZapisana] = useState(false);
+
 
 
     const [repairParts, setRepairParts] = useState([]);
@@ -45,15 +44,12 @@ const EditRepairForm = () => {
         if (repair.status === 'Zakończony') {
             setRepair(prevState => ({
                 ...prevState,
-                endDate: new Date() // Set the current date as the end date
+                endDate: new Date()
             }));
-            if (naprawaZapisana) {
-                setReadOnly(true);
-            }
+            setReadOnly(true);
         }
+    }, [repair.status]);
 
-    }, [repair.status, naprawaZapisana]);
-    // Function to fetch customer data
     const fetchCustomer = async (customerId) => {
         try {
             const response = await axios.get(`http://localhost:8080/api/customers/${customerId}`);
@@ -67,7 +63,7 @@ const EditRepairForm = () => {
         }
     };
 
-    // Fetch repair details
+
     const fetchRepairDetails = () => {
         axios.get(`http://localhost:8080/api/repairs/${repairId}`)
             .then(response => {
@@ -78,7 +74,7 @@ const EditRepairForm = () => {
                 }
                 setRepair(fetchedRepair);
                 setReadOnly(fetchedRepair.status === 'Zakończony');
-                // Fetch customer data after setting repair details
+
                 if (fetchedRepair.customerId) {
                     fetchCustomer(fetchedRepair.customerId);
                 }
@@ -86,7 +82,7 @@ const EditRepairForm = () => {
             .catch(error => console.error('Error fetching repair:', error));
     };
 
-    // Fetch devices
+
     const fetchDevices = () => {
         axios.get('http://localhost:8080/api/devices')
             .then(response => setDevicesList(response.data))
@@ -98,7 +94,7 @@ const EditRepairForm = () => {
             .catch(error => console.error('Error fetching repair parts:', error));
     };
 
-    // Fetch parts
+
     const fetchParts = () => {
         axios.get('http://localhost:8080/api/parts')
             .then(response => setPartsList(response.data))
@@ -106,7 +102,7 @@ const EditRepairForm = () => {
     };
 
 
-    // Event Handlers
+
     const handleChange = (e) => setRepair({ ...repair, [e.target.name]: e.target.value });
 
     const handleEndDateChange = (date) => {
@@ -125,12 +121,11 @@ const EditRepairForm = () => {
             return;
         }
 
-        // Update repair details
+
         try {
             const response = await axios.put(`http://localhost:8080/api/repairs/modify/${repairId}`, repair);
             console.log('Repair updated successfully:', response.data);
-            // Additional logic after successful update
-            setNaprawaZapisana(true);
+
         } catch (error) {
             console.error('Error updating repair:', error);
         }
@@ -175,7 +170,6 @@ const EditRepairForm = () => {
             })
             .catch(error => console.error('Błąd podczas generowania protokołu:', error));
     };
-    // Inside your component
 
     const removePartFromRepair = async (repairPartID) => {
         console.log("usuwanie części z ID:", repairPartID); // Dodaj to, aby zobaczyć, czy ID części jest prawidłowe
@@ -191,7 +185,7 @@ const EditRepairForm = () => {
         }
     };
 
-    // Podczas montowania komponentu, pobierz części naprawy
+
     useEffect(() => {
         const fetchRepairParts = async () => {
             try {
@@ -235,7 +229,7 @@ const EditRepairForm = () => {
                         <label className="form-label">Urządzenie:</label>
                         <select name="deviceId" className="form-select" value={repair.deviceId} onChange={handleChange} disabled={readOnly}>
                             {devicesList.map(device => (
-                                <option key={device.id} value={device.id}>{device.type} {device.model}</option>
+                                <option key={device.deviceID} value={device.deviceID}>{device.type} {device.model}</option>
                             ))}
                         </select>
                     </div>
@@ -245,10 +239,11 @@ const EditRepairForm = () => {
                         <div className="selected-parts-list">
                             {repairParts.map(repairPart => (
                                 <div key={repairPart.repairPartID}>
-                                    {repairPart.part.name} - {repairPart.part.price} PLN &
+                                    {repairPart.part.name} - {repairPart.part.price} PLN
                                     <button
                                         className="btn btn-danger btn-sm"
-                                        onClick={() => removePartFromRepair(repairPart.repairPartID, repairPart.part.id)} disabled={readOnly}
+                                        onClick={() => removePartFromRepair(repairPart.repairPartID, repairPart.part.id)}
+                                        disabled={readOnly}
                                     >
                                         Usuń
                                     </button>
@@ -259,7 +254,8 @@ const EditRepairForm = () => {
                         <button
                             type="button"
                             className="btn btn-outline-primary"
-                            onClick={openPartsModal} disabled={readOnly}
+                            onClick={openPartsModal}
+                            disabled={readOnly}
                         >
                             Dodaj części
                         </button>
@@ -278,7 +274,7 @@ const EditRepairForm = () => {
                             type="number"
                             name="price"
                             className="form-control"
-                            placeholder={totalPartsPrice}
+                            value={(repair.price || 0) + totalPartsPrice}
                             onChange={handleChange}
                             readOnly={readOnly}
                         />
@@ -290,9 +286,25 @@ const EditRepairForm = () => {
                     <textarea name="technicianDescription" className="form-control" value={repair.technicianDescription} onChange={handleChange} readOnly={readOnly}></textarea>
                 </div>
 
+                <div className="row">
+                    {repair.status === 'Zakończony' && (
+                        <div className="col-md-6 mb-3">
+                            <label className="form-label">Data Zakończenia:</label>
+                            <DatePicker
+                                selected={repair.endDate}
+                                onChange={handleEndDateChange}
+                                className="form-control"
+                                showTimeSelect
+                                dateFormat="Pp"
+                                timeIntervals={30}
+                                readOnly={readOnly}
+                            />
+                        </div>
+                    )}
+                </div>
 
                 {readOnly && <button type="button" className="btn btn-secondary" onClick={handleGenerateProtocol}>Generuj Protokół</button>}
-                <button type="submit" className="btn btn-primary" disabled={readOnly}>Zapisz zmiany</button>
+                <button type="submit" className="btn btn-primary">Zapisz zmiany</button>
             </form>
         </div>
     );

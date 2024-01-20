@@ -1,10 +1,12 @@
 .report-form .add-customer-form, .report-form .client-description {
     margin-top: 10px;
+    padding: 10px;
+
 }
 
 .report-form textarea {
     width: 100%;
-    height: 100px; /* Zwiększ wysokość */
+    height: 100px;
 }
 
 .add-customer-form input, .add-customer-form select {

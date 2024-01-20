@@ -95,7 +95,7 @@ const UserForm = () => {
                 username: newUserData.username,
                 password: newUserData.password,
                 email: newUserData.email,
-                roleName: newUserData.role // Tutaj przesyłamy roleName
+                roleName: newUserData.role //
             });
             setUsers([...users, response.data]);
             setNewUserData({ username: '', password: '', email: '', role: '' });
@@ -118,7 +118,7 @@ const UserForm = () => {
             updatedUserData.email = editUser.email;
         }
         if (editUser.role && editUser.role.trim() !== "") {
-            updatedUserData.role = editUser.role; // Ensure this matches your API's expected field name
+            updatedUserData.role = editUser.role;
         }
 
         try {

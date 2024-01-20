@@ -9,42 +9,42 @@
     left: 0;
     top: 0;
     transition: all 0.3s ease;
-    overflow-y: auto; /* umożliwia przewijanie */
-    max-height: 100vh; /* maksymalna wysokość menu */
+    overflow-y: auto;
+    max-height: 100vh;
 }
 .no-bullet {
-    list-style-type: none; /* Removes bullet points */
+    list-style-type: none;
     padding: 0;
     margin: 0;
 }
 .side-menu.closed .no-bullet a {
     display: flex;
     align-items: center;
-    justify-content: center; /* Center the icons */
+    justify-content: center;
     max-width: 75px;
 }
 .side-menu.closed .toggle-button {
-    width: 75px; /* Ensure the toggle button also resizes */
+    width: 75px;
 }
 .side-menu.open {
-    width: 300px; /* Full width when menu is open */
+    width: 300px;
 }
 .side-menu.closed {
-    width: 80px; /* Smaller width when menu is closed */
-    overflow: hidden; /* Hide overflowing content */
+    width: 80px;
+    overflow: hidden;
 }
-/* Hide text labels in closed state */
+
 .side-menu.closed a span {
     display: none;
 }
-/* Optional: Style for the FontAwesomeIcon */
+
 .side-menu .fa-icon {
-    margin-right: 8px; /* Add some spacing between icon and text */
+    margin-right: 8px;
 }
 .menu-items {
     list-style: none;
     padding: 0;
-    margin-top: 50px; /* Dostosuj według potrzeb */
+    margin-top: 50px;
 }
 
 .menu-items.hidden {
@@ -62,7 +62,7 @@
     text-align: left;
 }
 
-/* Styl pozycji w menu */
+
 .side-menu a {
     color: white;
     text-decoration: none;
@@ -74,13 +74,13 @@
     background-color: #555;
 }
 
-/* Styl dla treści, aby uniknąć nakładania się na menu */
+
 .content {
-    margin-left: 200px; /* Dostosuj szerokość do szerokości SideMenu */
-    padding-top: 50px; /* Dostosuj, aby uniknąć nakładania się na top-bar */
+    margin-left: 200px;
+    padding-top: 50px;
 }
 
-/* Dodatkowe style dla SideMenu.css, aby ukryć tekst w zwiniętym menu */
+
 .side-menu.closed li a {
     display: none;
     list-style-type: none;

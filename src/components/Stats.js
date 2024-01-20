@@ -50,7 +50,7 @@ const Stats = () => {
             }
         };
         fetchRepairs();
-    }, [startDate, endDate]); // Dodaj startDate i endDate do listy zależności
+    }, [startDate, endDate]);
 
 
     const processData = () => {
@@ -60,13 +60,13 @@ const Stats = () => {
         const repairDurationsByTechnician = {};
 
         completedRepairs.forEach(repair => {
-            // Count repairs by customer
+
             repairsByCustomer[repair.customerName] = (repairsByCustomer[repair.customerName] || 0) + 1;
 
-            // Count repairs by technician
+
             repairsByTechnician[repair.technicianName] = (repairsByTechnician[repair.technicianName] || 0) + 1;
 
-            // Calculate repair durations
+
             if (repair.startDate && repair.endDate) {
                 const duration = moment(repair.endDate).diff(moment(repair.startDate), 'hours');
                 repairDurationsByTechnician[repair.technicianName] = repairDurationsByTechnician[repair.technicianName] || [];
@@ -151,7 +151,7 @@ const Stats = () => {
                 <Bar data={technicianChartData} options={{ responsive: true }} />
                 <Bar data={averageDurationChartData} options={{ responsive: true }} />
             </div>
-            {/* Tutaj możesz dodać inne komponenty raportów lub tabel, jeśli są potrzebne */}
+
         </div>
     );
 };

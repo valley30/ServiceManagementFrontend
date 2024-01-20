@@ -4,7 +4,7 @@ const PartsModal = ({ closePartsModal, addPartToRepair, partsList }) => {
     const [availableParts, setAvailableParts] = useState(partsList);
 
     const handleAddPart = async (partpartID) => {
-        console.log("Dodawanie części z ID:", partpartID); // Dodaj to, aby zobaczyć, czy ID części jest prawidłowe
+        console.log("Dodawanie części z ID:", partpartID);
         try {
             await addPartToRepair(partpartID);
             const updatedParts = availableParts.filter(part => part.partID !== partpartID);

@@ -1,6 +1,6 @@
-/* Style dla kontenera formularza */
+
 div {
-    background-color: #444; /* Ciemne tło dla formularza */
+    background-color: #444;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
@@ -10,7 +10,7 @@ div {
 .form-login{
     max-width: 400px;
 }
-/* Style dla pól input */
+
 input[type="text"], input[type="password"] {
     width: 80%;
     padding: 10px;
@@ -20,9 +20,9 @@ input[type="text"], input[type="password"] {
     font-size: 16px;
 }
 
-/* Style dla przycisku */
+
 button {
-    background-color: white; /* Biały przycisk */
+    background-color: white;
     color: black;
     border: none;
     padding: 10px 20px;

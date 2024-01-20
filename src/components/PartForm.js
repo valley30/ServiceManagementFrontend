@@ -118,7 +118,7 @@ const PartForm = () => {
         }
     };
 
-    // Paginacja...
+
     const indexOfLastPart = currentPage * partsPerPage;
     const indexOfFirstPart = indexOfLastPart - partsPerPage;
     const currentParts = parts.slice(indexOfFirstPart, indexOfLastPart);
@@ -129,7 +129,7 @@ const PartForm = () => {
     }
 
     return (
-        <div>
+        <div className="form-container">
             <div className="header-container">
                 <h2>Lista Części</h2>
 
@@ -193,7 +193,7 @@ const PartForm = () => {
                 </form>
             )}
 
-            <table>
+            <table className="table-container">
                 <thead>
                 <tr>
                     <th onClick={() => sortData('name')}>Nazwa</th>

@@ -3,7 +3,7 @@
     margin: auto;
 }
 
-/* Styl dla paska wyszukiwania */
+
 .search-box input[type="text"] {
     width: 100%;
     padding: 10px;
@@ -14,7 +14,7 @@
     color: white;
 }
 
-/* Styl dla menu */
+
 .menu {
     background-color: black;
     padding: 10px;
@@ -22,7 +22,7 @@
     text-align: left;
 }
 
-/* Styl tekstu w menu */
+
 .menu a {
     color: white;
     text-decoration: none;
@@ -33,7 +33,7 @@
 .menu a:hover {
     background-color: #555;
 }
-/* Dla paska wyszukiwania i top-bar */
+
 .top-bar {
     position: fixed;
     right: 0;

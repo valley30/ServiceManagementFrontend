@@ -2,22 +2,22 @@
 
 import React, { useState } from 'react';
 import { loginUser } from '../api';
-import './LoginForm.css'; // Import stylów
+import './LoginForm.css';
 function LoginForm({ onLoginSuccess, onLoginFailure }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-// LoginForm.js
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
             const response = await loginUser(username, password);
             localStorage.setItem('jwtToken', response.accessToken); // Zapisz token w Local Storage
-            onLoginSuccess(response); // Wywołaj, gdy logowanie jest udane
+            onLoginSuccess(response);
         } catch (err) {
             setError("Logowanie nieudane.");
-            onLoginFailure(); // Wywołaj, gdy logowanie nie powiedzie się
+            onLoginFailure();
         }
     };
 

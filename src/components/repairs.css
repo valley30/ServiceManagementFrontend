@@ -3,7 +3,8 @@
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
-
+    min-height: 550px;
+    min-width: 700px;
 }
 
 .repairs-container h2 {
@@ -70,4 +71,4 @@
     background-color: #f2f2f2;
 }
 
-/* Add more CSS as needed for other elements */
+

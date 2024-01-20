@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './form.css';
+import './RepairForm.css';
 import { faUserPlus, faUserMinus,faUserPen} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useParams, useNavigate } from 'react-router-dom';
+import {useParams, useNavigate, useLocation} from 'react-router-dom';
 
-const RepairForm = ({ user }) => { // Przekazanie 'user' jako prop
+const RepairForm = ({ user }) => {
     const { repairId } = useParams();
     const navigate = useNavigate();
     const [devices, setDevices] = useState([]);
@@ -17,12 +17,30 @@ const RepairForm = ({ user }) => { // Przekazanie 'user' jako prop
         technicianDescription: '',
         price: 0,
         customerId: null,
-        userId: user.data.userID, // Ustawienie ID użytkownika na podstawie danych logowania
-        deviceId: '', // ID wybranego urządzenia
+        userId: user.data.userID,
+        deviceId: '',
         endDate: null
     });
     const [readOnly, setReadOnly] = useState(false);
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const reportIdFromQuery = queryParams.get('reportId');
+    useEffect(() => {
 
+        if (reportIdFromQuery) {
+            axios.get(`http://localhost:8080/api/reports/${reportIdFromQuery}`)
+                .then(response => {
+                    const reportData = response.data;
+                    setRepair({
+                        ...repair,
+                        customerDescription: reportData.clientDescription,
+                        customerId: reportData.customerId
+
+                    });
+                })
+                .catch(error => console.error('Błąd podczas pobierania zgłoszenia:', error));
+        }
+    }, [reportIdFromQuery]);
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -45,7 +63,7 @@ const RepairForm = ({ user }) => { // Przekazanie 'user' jako prop
                 })
                 .catch(error => console.error('Błąd podczas pobierania naprawy:', error));
         }
-    }, [repairId, user.data.userID]); // Dodanie 'user.data.userID' do listy zależności
+    }, [repairId, user.data.userID]);
 
 
     const handleChange = (e) => {
@@ -62,7 +80,7 @@ const RepairForm = ({ user }) => { // Przekazanie 'user' jako prop
         axios.post(`http://localhost:8080/api/repairs${endpoint}`, repair)
             .then(response => {
                 if (!repairId) {
-                    const newRepairId = response.data.repairID; // Pobranie ID z odpowiedzi
+                    const newRepairId = response.data.repairID;
                     if (newRepairId) {
                         navigate(`/edit-repair/${newRepairId}`);
                     } else {
@@ -89,61 +107,73 @@ const RepairForm = ({ user }) => { // Przekazanie 'user' jako prop
     };
 
     return (
-        <div>
+        <div className="repair-form-container">
             <h2>{repairId ? 'Edycja Naprawy' : 'Nowa Naprawa'}</h2>
             <form onSubmit={handleSubmit}>
-                <label>
-                    Klient:
-                    <select name="customerId" value={repair.customerId} onChange={handleChange} disabled={readOnly}>
-                        <option value="">Wybierz klienta</option>
-                        {customers.map(customer => (
-                            <option key={customer.customerID} value={customer.customerID}>
-                                {customer.firstName} {customer.lastName}
-                            </option>
-                        ))}
-                    </select>
-                </label>
-                <label>
-                    Opis Klienta:
-                    <textarea name="customerDescription" value={repair.customerDescription} onChange={handleChange} readOnly={readOnly}></textarea>
-                </label>
-                <label>
-                    Urządzenie:
-                    <select name="deviceId" value={repair.deviceId} onChange={handleChange} disabled={readOnly}>
-                        <option value="">Wybierz urządzenie</option>
-                        {devices.map(device => (
-                            <option key={device.deviceID} value={device.deviceID}>
-                                {device.type} ({device.model})
-                            </option>
-                        ))}
-                    </select>
-                </label>
-                <label>
-                    Opis Technika:
-                    <textarea name="technicianDescription" value={repair.technicianDescription} onChange={handleChange} readOnly={readOnly}></textarea>
-                </label>
-                <label>
-                    Cena:
-                    <input type="number" name="price" value={repair.price} onChange={handleChange} readOnly={readOnly} />
-                </label>
-                <label>
-                    Status:
-                    <select name="status" value={repair.status} onChange={handleChange} disabled={readOnly}>
-                        <option value="Nowy">Nowy</option>
-                        <option value="W trakcie">W trakcie</option>
-                        <option value="Zakończony">Zakończony</option>
-                    </select>
-                </label>
-                {repair.status === 'Zakończony' && (
+                <div className="repair-form-header">
+                    <div className="form-group">
+                        <label>
+                            Status:
+                            <select name="status" value={repair.status} onChange={handleChange} disabled={readOnly}>
+                                <option value="Nowy">Nowy</option>
+                                <option value="W trakcie">W trakcie</option>
+                                <option value="Zakończony">Zakończony</option>
+                            </select>
+                        </label>
+                    </div>
+                    <button type="submit">Zapisz</button>
+                </div>
+                <div className="repair-form-body">
+                    <div className="form-group">
                     <label>
-                        Data Zakończenia:
-                        <input type="date" name="endDate" value={repair.endDate} onChange={handleChange} />
+                        Klient:
+                        <select name="customerId" value={repair.customerId} onChange={handleChange} disabled={readOnly}>
+                            <option value="">Wybierz klienta</option>
+                            {customers.map(customer => (
+                                <option key={customer.customerID} value={customer.customerID}>
+                                    {customer.firstName} {customer.lastName}
+                                </option>
+                            ))}
+                        </select>
                     </label>
-                )}
-                <button type="submit">Zapisz</button>
+                    <label>
+                        Opis Klienta:
+                        <textarea name="customerDescription" value={repair.customerDescription} onChange={handleChange} readOnly={readOnly}></textarea>
+                    </label>
+                    <label>
+                        Urządzenie:
+                        <select name="deviceId" value={repair.deviceId} onChange={handleChange} disabled={readOnly}>
+                            <option value="">Wybierz urządzenie</option>
+                            {devices.map(device => (
+                                <option key={device.deviceID} value={device.deviceID}>
+                                    {device.type} ({device.model})
+                                </option>
+                            ))}
+                        </select>
+                    </label>
+                </div>
+                <div className="form-group">
+                    <label>
+                        Opis Technika:
+                        <textarea name="technicianDescription" value={repair.technicianDescription} onChange={handleChange} readOnly={readOnly}></textarea>
+                    </label>
+                    <label>
+                        Cena:
+                        <input type="number" name="price" value={repair.price} onChange={handleChange} readOnly={readOnly} />
+                    </label>
+                    {repair.status === 'Zakończony' && (
+                        <label>
+                            Data Zakończenia:
+                            <input type="date" name="endDate" value={repair.endDate} onChange={handleChange} />
+                        </label>
+                    )}
+                </div>
                 {readOnly && <button type="button" onClick={handleGenerateProtocol}>Generuj Protokół</button>}
+                </div>
             </form>
         </div>
+
+
     );
 };
 

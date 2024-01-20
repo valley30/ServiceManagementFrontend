@@ -30,10 +30,10 @@ const Repairs = () => {
         price: 'Kwota',
         userId: 'Technik',
         customerId: 'Klient'
-        // Add more mappings as needed
+
     };
     const [filters, setFilters] = useState({});
-    // ... (Other existing states)
+
     const fetchCustomerName = async (customerId) => {
         try {
             const response = await axios.get(`http://localhost:8080/api/customers/${customerId}`);
@@ -54,7 +54,7 @@ const Repairs = () => {
     };
 
 
-    // Fetch repairs with additional data (like technician's username and customer's name)
+
     useEffect(() => {
         const fetchRepairs = async () => {
             try {
@@ -113,19 +113,19 @@ const Repairs = () => {
         setRepairs(sortedRepairs);
     };
 
-    // Function to handle column display toggle
+
     const toggleColumnDisplay = (column) => {
         setDisplayedColumns(prevState => ({ ...prevState, [column]: !prevState[column] }));
     };
 
-    // Function to handle filters
+
     const handleFilterChange = (e, filterKey) => {
         setFilters({ ...filters, [filterKey]: e.target.value });
     };
 
-    // Apply filters to repairs
+
     useEffect(() => {
-        // Logic to filter repairs based on the filters state
+
     }, [filters]);
     const formatDate = (dateString) => {
         if (!dateString) return '';
@@ -147,7 +147,7 @@ const Repairs = () => {
         <div className="repairs-container">
             <h2>Lista Napraw</h2>
 
-            {/* Column toggle checkboxes */}
+
             <div className="column-toggles">
                 {Object.keys(displayedColumns).map(column => (
                     <label key={column}>
@@ -181,7 +181,7 @@ const Repairs = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {/* Render rows based on displayedColumns state */}
+
                 {currentRepairs.map(repair => (
                     <tr key={repair.repairID}>
                         {displayedColumns.repairId && <td><Link to={`/edit-repair/${repair.repairID}`}>{repair.repairID}</Link></td>}
@@ -191,7 +191,7 @@ const Repairs = () => {
                         {displayedColumns.price && <td>{repair.price}</td>}
                         {displayedColumns.userId && <td>{repair.technicianName}</td>}
                         {displayedColumns.customerId && <td>{repair.customerName}</td>}
-                        {/* Render other columns based on displayedColumns state */}
+
                     </tr>
                 ))}
                 </tbody>

@@ -17,7 +17,6 @@ const Reports = ({ user }) => {
         reportId: true,
         status: true,
         creationDate: true,
-        // clientDescription: true,
         customerId: true,
         userId: true
     });
@@ -25,16 +24,14 @@ const Reports = ({ user }) => {
     const columnDisplayNames = {
         reportId: 'Numer Zgłoszenia',
         status: 'Status',
-        // creationDate: 'Data utworzenia',
         clientDescription: 'Opis',
         customerId: 'Klient',
         userId: 'Technik'
-        // Add more mappings as needed
     };
 
-    // ... Similar fetchCustomerName and fetchTechnicianName functions as in Repairs.js
+
     const [filters, setFilters] = useState({});
-    // ... (Other existing states)
+
     const fetchCustomerName = async (customerId) => {
         try {
             const response = await axios.get(`http://localhost:8080/api/customers/${customerId}`);
@@ -85,14 +82,12 @@ const Reports = ({ user }) => {
         setReports(sortedReports);
     };
 
-    // Function to handle column display toggle
+
     const toggleColumnDisplay = (column) => {
         setDisplayedColumns(prevState => ({ ...prevState, [column]: !prevState[column] }));
     };
 
-    // Function to handle filters
 
-    // Apply filters to repairs
 
     const formatDate = (dateString) => {
         if (!dateString) return '';

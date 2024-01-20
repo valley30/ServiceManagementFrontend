@@ -28,7 +28,7 @@ const MyRepairs = ({ user }) => {
         price: 'Kwota',
         userId: 'Technik',
         customerId: 'Klient'
-        // Add more mappings as needed
+
     };
     const fetchCustomerName = async (customerId) => {
         try {
@@ -49,7 +49,7 @@ const MyRepairs = ({ user }) => {
         }
     };
 
-    // Fetch repairs
+
     useEffect(() => {
 
         const fetchRepairs = async () => {
@@ -162,7 +162,7 @@ const MyRepairs = ({ user }) => {
                 </tr>
                 </thead>
                 <tbody>
-                {/* Render rows based on displayedColumns state */}
+
                 {currentRepairs.map(repair => (
                     <tr key={repair.repairID}>
                         {displayedColumns.repairId && <td><Link to={`/edit-repair/${repair.repairID}`}>{repair.repairID}</Link></td>}
@@ -172,7 +172,7 @@ const MyRepairs = ({ user }) => {
                         {displayedColumns.price && <td>{repair.price}</td>}
                         {displayedColumns.userId && <td>{repair.technicianName}</td>}
                         {displayedColumns.customerId && <td>{repair.customerName}</td>}
-                        {/* Render other columns based on displayedColumns state */}
+
                     </tr>
                 ))}
                 </tbody>

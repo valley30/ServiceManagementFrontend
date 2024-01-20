@@ -51,10 +51,10 @@ const ReportForm = ({ user }) => {
             const response = await axios.post('http://localhost:8080/api/reports/add', newReport);
 
             if (response.data && response.data.reportId) {
-                // Przekierowanie do strony edycji zgłoszenia, jeśli zgłoszenie zostało pomyślnie utworzone
+
                 navigate(`/edit-report/${response.data.reportId}`);
             } else {
-                // Obsługa sytuacji, gdy odpowiedź nie zawiera oczekiwanych danych
+
                 console.error('Odpowiedź nie zawiera oczekiwanych danych');
             }
         } catch (error) {
@@ -62,7 +62,7 @@ const ReportForm = ({ user }) => {
         }
     };
     return (
-        <div>
+        <div className="form-container">
             <h2>Nowe zgłoszenie</h2>
             {showAddCustomerForm && (
                 <form onSubmit={handleAddCustomerSubmit}>

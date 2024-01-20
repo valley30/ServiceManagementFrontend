@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
-
+import './Report.css'
 const Reports = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [reportsPerPage] = useState(5);
@@ -26,7 +25,7 @@ const Reports = () => {
         creationDate: 'Data utworzenia',
         clientDescription: 'Opis',
         customerId: 'Klient',
-        userId: 'Technik'
+        userId: 'Pracownik'
 
     };
 
@@ -48,7 +47,7 @@ const Reports = () => {
             return `${response.data.username}`;
         } catch (error) {
             console.error('Error fetching user data:', error);
-            return 'Unknown Technician';
+            return 'Online Client';
         }
     };
 
@@ -69,6 +68,32 @@ const Reports = () => {
         };
         fetchReports();
     }, []);
+    useEffect(() => {
+        const fetchReports = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/api/reports');
+                let reportsWithNames = await Promise.all(response.data.map(async (report) => {
+                    const customerName = await fetchCustomerName(report.customerId);
+                    const technicianName = await fetchTechnicianName(report.userId);
+                    return { ...report, customerName, technicianName };
+                }));
+
+                if (searchTerm.length >= 3) {
+                    reportsWithNames = reportsWithNames.filter(report =>
+                        Object.values(report).some(value =>
+                            value !== null && value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+                        )
+                    );
+                }
+
+                setReports(reportsWithNames);
+            } catch (error) {
+                console.error('Error fetching reports:', error);
+            }
+        };
+        fetchReports();
+    }, [searchTerm]);
+
     const sortData = (field) => {
         const order = sortField === field && sortOrder === 'asc' ? 'desc' : 'asc';
         setSortField(field);
@@ -142,10 +167,9 @@ const Reports = () => {
                 <tr>
                     {displayedColumns.reportId && <th onClick={() => sortData('reportID')}>ID Zgłoszenia</th>}
                     {displayedColumns.status && <th onClick={() => sortData('status')}>Status</th>}
-                    {displayedColumns.creationDate && <th onClick={() => sortData('creationDate')}>Data utworzenia</th>}
                     {displayedColumns.clientDescription && <th onClick={() => sortData('clientDescription')}>Opis</th>}
                     {displayedColumns.customerId && <th onClick={() => sortData('customerName')}>Klient</th>}
-                    {displayedColumns.userId && <th onClick={() => sortData('technicianName')}>Technik</th>}
+                    {displayedColumns.userId && <th onClick={() => sortData('technicianName')}>Pracownik</th>}
                 </tr>
                 </thead>
                 <tbody>
@@ -155,8 +179,7 @@ const Reports = () => {
                     <tr key={report.reportId}>
                         {displayedColumns.reportId && <td><Link to={`/edit-report/${report.reportId}`}>{report.reportId}</Link></td>}
                         {displayedColumns.status && <td>{report.status}</td>}
-                        {displayedColumns.creationDate && <td>{formatDate(report.creationDate)}</td>}
-                        {displayedColumns.clientDescription && <td>{report.clientDescription}</td>}
+                        {displayedColumns.clientDescription && <td className="client-description">{report.clientDescription}</td>}
                         {displayedColumns.customerId && <td>{report.customerName}</td>}
                         {displayedColumns.userId && <td>{report.technicianName}</td>}
                     </tr>

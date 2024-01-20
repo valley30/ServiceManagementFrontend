@@ -8,7 +8,7 @@ const EditReportForm = () => {
     const [report, setReport] = useState({
         clientDescription: '',
         status: '',
-        customerName: '', // Nazwa klienta
+        customerName: '',
         customerId: ''
     });
     const { reportId } = useParams();
@@ -44,10 +44,10 @@ const EditReportForm = () => {
     };
 
     const handleCancel = async () => {
-        // Logika anulowania zgłoszenia (np. usunięcie zgłoszenia)
+
         try {
             await axios.delete(`http://localhost:8080/api/reports/delete/${reportId}`);
-            navigate('/'); // Powrót do strony głównej
+            navigate('/');
         } catch (error) {
             console.error('Błąd podczas anulowania zgłoszenia:', error);
         }
@@ -55,7 +55,7 @@ const EditReportForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Logika aktualizacji zgłoszenia
+
         try {
             await axios.put(`http://localhost:8080/api/reports/modify/${reportId}`, report);
             navigate(`/new-repair?reportId=${reportId}`); // Przejście do tworzenia naprawy
@@ -92,7 +92,7 @@ const EditReportForm = () => {
                         <option value="Nowy">Nowy</option>
                         <option value="W trakcie">W trakcie</option>
                         <option value="Zakończony">Zakończony</option>
-                        {/* Dodaj więcej opcji statusu zgodnie z potrzebami */}
+
                     </select>
                 </div>
                 <button type="submit">Przejdź do naprawy</button>

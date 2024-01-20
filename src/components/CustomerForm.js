@@ -141,7 +141,7 @@ const CustomerForm = () => {
     }
 
     return (
-        <div>
+        <div className="form-container">
 
 
             {showAddForm && (

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './WelcomePage.css';
 import axios from "axios";
-import {Link} from "react-router-dom"; // Import stylów
+import {Link} from "react-router-dom";
 
 function WelcomePage({ user }) {
     const [currentPage, setCurrentPage] = useState(1);
@@ -28,10 +28,10 @@ function WelcomePage({ user }) {
         price: 'Kwota',
         userId: 'Technik',
         customerId: 'Klient'
-        // Add more mappings as needed
+
     };
     const [filters, setFilters] = useState({});
-    // ... (Other existing states)
+
     const fetchCustomerName = async (customerId) => {
         try {
             const response = await axios.get(`http://localhost:8080/api/customers/${customerId}`);
@@ -52,7 +52,7 @@ function WelcomePage({ user }) {
     };
 
 
-    // Fetch repairs with additional data (like technician's username and customer's name)
+
     useEffect(() => {
         const fetchRepairs = async () => {
             try {
@@ -111,19 +111,19 @@ function WelcomePage({ user }) {
         setRepairs(sortedRepairs);
     };
 
-    // Function to handle column display toggle
+
     const toggleColumnDisplay = (column) => {
         setDisplayedColumns(prevState => ({ ...prevState, [column]: !prevState[column] }));
     };
 
-    // Function to handle filters
+
     const handleFilterChange = (e, filterKey) => {
         setFilters({ ...filters, [filterKey]: e.target.value });
     };
 
-    // Apply filters to repairs
+
     useEffect(() => {
-        // Logic to filter repairs based on the filters state
+
     }, [filters]);
     const formatDate = (dateString) => {
         if (!dateString) return '';
@@ -147,7 +147,6 @@ function WelcomePage({ user }) {
             <h1>Witaj, {user.data.username}!</h1>
             <h2>Lista Napraw</h2>
 
-            {/* Column toggle checkboxes */}
             <div className="column-toggles">
                 {Object.keys(displayedColumns).map(column => (
                     <label key={column}>
@@ -181,7 +180,7 @@ function WelcomePage({ user }) {
                 </tr>
                 </thead>
                 <tbody>
-                {/* Render rows based on displayedColumns state */}
+
                 {currentRepairs.map(repair => (
                     <tr key={repair.repairID}>
                         {displayedColumns.repairId && <td><Link to={`/edit-repair/${repair.repairID}`}>{repair.repairID}</Link></td>}
@@ -191,7 +190,7 @@ function WelcomePage({ user }) {
                         {displayedColumns.price && <td>{repair.price}</td>}
                         {displayedColumns.userId && <td>{repair.technicianName}</td>}
                         {displayedColumns.customerId && <td>{repair.customerName}</td>}
-                        {/* Render other columns based on displayedColumns state */}
+
                     </tr>
                 ))}
                 </tbody>

@@ -25,7 +25,7 @@ import Logout from './components/Logout';
 import './App.css';
 
 import axios from "axios";
-// Możesz to zrobić na początku pliku App.js lub w dedykowanym pliku konfiguracyjnym Axios
+
 axios.interceptors.request.use((config) => {
     const token = localStorage.getItem('jwtToken');
     if (token) {
@@ -38,7 +38,7 @@ function App() {
     const isTokenValid = (token) => {
         try {
             const decoded = jwtDecode(token);
-            const currentTime = Date.now() / 1000; // Bieżący czas w sekundach
+            const currentTime = Date.now() / 1000; //  czas w sekundach
             return decoded.exp > currentTime;
         } catch (error) {
             return false;
@@ -100,7 +100,7 @@ function App() {
 
                     ) : (
                         <>
-                            <Route path="/logout" element={<Logout onLogout={handleLogout} />} />
+
 
                             <Route path="/" element={<WelcomePage user={user} />} />
                             {isAdmin && (
@@ -109,8 +109,8 @@ function App() {
                                     <Route path="/parts" element={<PartForm />} />
                                     <Route path="/customers" element={<CustomerForm />} />
                                     <Route path="/users" element={<UserForm />} />
-                                    <Route path="/report-management" element={<Repairs />} />
-                                    <Route path="/repair-management" element={<Reports />} />
+                                    <Route path="/report-management" element={<Reports />} />
+                                    <Route path="/repair-management" element={<Repairs />} />
                                     <Route path="/stats" element={<Stats />} />
                                 </>
                             )}
@@ -122,6 +122,7 @@ function App() {
                             <Route path="/my-reports" element={<MyReports user={user} />} />
                             <Route path="/repairs" element={<Repairs />} />
                             <Route path="/reports" element={<Reports />} />
+                            <Route path="/logout" element={<Logout onLogout={handleLogout} />} />
                         </>
                     )}
                 </Routes>
