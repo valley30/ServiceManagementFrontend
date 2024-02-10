@@ -51,48 +51,41 @@ const Reports = () => {
         }
     };
 
+    const fetchRepairIdForReport = async (reportId) => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/repairs/by-report/${reportId}`);
+            console.log(response.data); // Zaloguj odpowiedź w konsoli
+            return response.data.repairID; // Zakładamy, że backend zwraca pole repairID
+        } catch (error) {
+            console.error(`Error fetching repair by reportId ${reportId}:`, error);
+            return null; // Jeśli nie znajdzie naprawy, zwraca null
+        }
+    };
 
     useEffect(() => {
         const fetchReports = async () => {
             try {
                 const response = await axios.get('http://localhost:8080/api/reports');
-                const reportsWithNames = await Promise.all(response.data.map(async (report) => {
+                let reportsWithNamesAndRepairIds = await Promise.all(response.data.map(async (report) => {
                     const customerName = await fetchCustomerName(report.customerId);
                     const technicianName = await fetchTechnicianName(report.userId);
-                    return { ...report, customerName, technicianName };
-                }));
-                setReports(reportsWithNames);
-            } catch (error) {
-                console.error('Error fetching reports:', error);
-            }
-        };
-        fetchReports();
-    }, []);
-    useEffect(() => {
-        const fetchReports = async () => {
-            try {
-                const response = await axios.get('http://localhost:8080/api/reports');
-                let reportsWithNames = await Promise.all(response.data.map(async (report) => {
-                    const customerName = await fetchCustomerName(report.customerId);
-                    const technicianName = await fetchTechnicianName(report.userId);
-                    return { ...report, customerName, technicianName };
-                }));
+                    let repairId = null;
 
-                if (searchTerm.length >= 3) {
-                    reportsWithNames = reportsWithNames.filter(report =>
-                        Object.values(report).some(value =>
-                            value !== null && value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-                        )
-                    );
-                }
+                    // Jeśli status zgłoszenia to "w naprawie", szukamy powiązanego 'repairId'
+                    if (report.status === 'W naprawie') {
+                        repairId = await fetchRepairIdForReport(report.reportId);
+                    }
 
-                setReports(reportsWithNames);
+                    return { ...report, customerName, technicianName, repairId };
+                }));
+                setReports(reportsWithNamesAndRepairIds);
             } catch (error) {
                 console.error('Error fetching reports:', error);
             }
         };
         fetchReports();
     }, [searchTerm]);
+
 
     const sortData = (field) => {
         const order = sortField === field && sortOrder === 'asc' ? 'desc' : 'asc';
@@ -165,20 +158,26 @@ const Reports = () => {
             <table className="reports-table">
                 <thead>
                 <tr>
-                    {displayedColumns.reportId && <th onClick={() => sortData('reportID')}>ID Zgłoszenia</th>}
+                    {displayedColumns.reportId && <th onClick={() => sortData('reportId')}>ID Zgłoszenia</th>}
                     {displayedColumns.status && <th onClick={() => sortData('status')}>Status</th>}
                     {displayedColumns.clientDescription && <th onClick={() => sortData('clientDescription')}>Opis</th>}
                     {displayedColumns.customerId && <th onClick={() => sortData('customerName')}>Klient</th>}
                     {displayedColumns.userId && <th onClick={() => sortData('technicianName')}>Pracownik</th>}
+
                 </tr>
                 </thead>
                 <tbody>
-
                 {currentReports.map(report => (
-
                     <tr key={report.reportId}>
                         {displayedColumns.reportId && <td><Link to={`/edit-report/${report.reportId}`}>{report.reportId}</Link></td>}
-                        {displayedColumns.status && <td>{report.status}</td>}
+                        {displayedColumns.status && (
+                            <td>
+                                {report.status}
+                                {report.status === 'W naprawie' && report.repairId && (
+                                    <Link to={`/edit-repair/${report.repairId}`}> - {report.repairId} </Link>
+                                )}
+                            </td>
+                        )}
                         {displayedColumns.clientDescription && <td className="client-description">{report.clientDescription}</td>}
                         {displayedColumns.customerId && <td>{report.customerName}</td>}
                         {displayedColumns.userId && <td>{report.technicianName}</td>}

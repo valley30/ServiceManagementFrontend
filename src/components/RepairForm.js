@@ -31,12 +31,12 @@ const RepairForm = ({ user }) => {
             axios.get(`http://localhost:8080/api/reports/${reportIdFromQuery}`)
                 .then(response => {
                     const reportData = response.data;
-                    setRepair({
-                        ...repair,
+                    setRepair(prevState => ({
+                        ...prevState,
                         customerDescription: reportData.clientDescription,
-                        customerId: reportData.customerId
-
-                    });
+                        customerId: reportData.customerId,
+                        reportId: reportData.reportId // Ustawienie reportId w stanie naprawy
+                    }));
                 })
                 .catch(error => console.error('Błąd podczas pobierania zgłoszenia:', error));
         }
@@ -76,16 +76,37 @@ const RepairForm = ({ user }) => {
             alert('Proszę ustawić datę zakończenia naprawy.');
             return;
         }
-        const endpoint = repairId ? `/modify/${repairId}` : '/add';
-        axios.post(`http://localhost:8080/api/repairs${endpoint}`, repair)
+
+        // Przygotowanie obiektu naprawy do wysłania wraz z reportId
+        const repairToSubmit = {
+            ...repair,
+            reportId: reportIdFromQuery // Dodanie reportId do obiektu naprawy
+        };
+
+        // Wybranie odpowiedniego endpointu w zależności od tego, czy naprawa jest nowa, czy aktualizowana
+        const endpoint = repairId ? `modify/${repairId}` : 'add';
+
+        // Wysyłanie żądania do API
+        // Uwaga: zmieniono metodę z POST na PUT przy aktualizacji naprawy
+        const method = repairId ? 'put' : 'post';
+        axios({
+            method: method,
+            url: `http://localhost:8080/api/repairs/${endpoint}`,
+            data: repairToSubmit
+        })
             .then(response => {
                 if (!repairId) {
+                    // Jeśli to nowa naprawa, nawigacja do edycji tej naprawy
                     const newRepairId = response.data.repairID;
                     if (newRepairId) {
                         navigate(`/edit-repair/${newRepairId}`);
                     } else {
                         console.error('Nie otrzymano ID nowej naprawy');
                     }
+                } else {
+                    // Jeśli była to aktualizacja, pozostanie na obecnej stronie lub wykonanie innego działania
+                    // Możesz również dodać tu nawigację do innego widoku, jeśli jest to wymagane
+                    navigate('/'); // Przykładowy redirect
                 }
             })
             .catch(error => console.error('Błąd podczas zapisywania naprawy:', error));

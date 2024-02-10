@@ -214,6 +214,7 @@ const EditRepairForm = () => {
                         <select name="status" value={repair.status} onChange={handleChange} className="form-select" disabled={readOnly}>
                             <option value="Nowy">Nowy</option>
                             <option value="W trakcie">W trakcie</option>
+                            <option value="akceptacja">Oczekiwanie na akceptacje</option>
                             <option value="Zakończony">Zakończony</option>
                         </select>
                     </div>
@@ -274,7 +275,7 @@ const EditRepairForm = () => {
                             type="number"
                             name="price"
                             className="form-control"
-                            value={(repair.price || 0) + totalPartsPrice}
+                            placeholder={(repair.price || 0) + totalPartsPrice}
                             onChange={handleChange}
                             readOnly={readOnly}
                         />

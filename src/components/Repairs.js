@@ -73,7 +73,7 @@ const Repairs = () => {
     }, []);
 
     useEffect(() => {
-        if (searchTerm.length >= 3) {
+        if (searchTerm.length >= 2) {
             const filteredRepairs = repairs.filter(repair =>
                 Object.values(repair).some(value =>
                     value !== null && value.toString().toLowerCase().includes(searchTerm.toLowerCase())

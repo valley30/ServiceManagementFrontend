@@ -57,46 +57,53 @@ const EditReportForm = () => {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:8080/api/reports/modify/${reportId}`, report);
-            navigate(`/new-repair?reportId=${reportId}`); // Przejście do tworzenia naprawy
+            const updatedReport = {
+                ...report,
+                status: 'W naprawie'
+            };
+            await axios.put(`http://localhost:8080/api/reports/modify/${reportId}`, updatedReport);
+            navigate(`/new-repair?reportId=${reportId}`); // Przekazanie reportId do RepairForm
         } catch (error) {
             console.error('Błąd podczas aktualizacji zgłoszenia:', error);
         }
     };
 
-    if (!report) return <div>Ładowanie...</div>;
+    if (!report) return <div className="loading">Ładowanie...</div>;
 
     return (
-        <div>
-            <h2>Edycja zgłoszenia</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
+        <div className="form-container">
+            <h2 className="form-title">Edycja zgłoszenia</h2>
+            <form onSubmit={handleSubmit} className="edit-report-form">
+                <div className="form-group">
                     <label>Klient:</label>
-                    <p>{report.customerName}</p>
+                    <p className="customer-name">{report.customerName}</p>
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Opis klienta:</label>
                     <textarea
                         name="clientDescription"
+                        className="form-control"
                         value={report.clientDescription}
                         onChange={handleInputChange}
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Status:</label>
                     <select
                         name="status"
+                        className="form-control"
                         value={report.status}
                         onChange={handleInputChange}
                     >
                         <option value="Nowy">Nowy</option>
-                        <option value="W trakcie">W trakcie</option>
+                        <option value="W naprawie">W naprawie</option>
                         <option value="Zakończony">Zakończony</option>
-
                     </select>
                 </div>
-                <button type="submit">Przejdź do naprawy</button>
-                <button type="button" onClick={handleCancel}>Anuluj</button>
+                <div className="form-actions">
+                    <button type="submit" className="btn btn-primary">Przejdź do naprawy</button>
+                    <button type="button" className="btn btn-secondary" onClick={handleCancel}>Anuluj</button>
+                </div>
             </form>
         </div>
     );

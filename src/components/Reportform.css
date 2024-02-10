@@ -13,3 +13,54 @@
     width: 100%;
     margin-bottom: 10px;
 }
+.reports-container {
+    margin: 20px;
+    min-width: 950px;
+    min-height: 700px;
+    justify-content: space-between;
+}
+
+.reports-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.reports-table th, .reports-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+
+
+.reports-table td {
+    vertical-align: top;
+}
+
+
+.reports-table td.client-description {
+
+    max-width: 300px;
+    word-wrap: break-word;
+}
+
+.pagination-nav {
+    margin-top: 150px;
+    text-align: center;
+}
+
+.pagination li {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.pagination li .page-link {
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    color: #337ab7;
+    text-decoration: none;
+}
+
+.pagination li .page-link:hover {
+    background-color: #f4f4f4;
+}

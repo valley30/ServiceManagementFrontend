@@ -9,6 +9,10 @@
     justify-content: center;
     align-items: center;
 }
+.pagination-nav {
+    margin-top: 10px; /* Zmień wartość według potrzeb */
+    text-align: center;
+}
 .table-container{
     margin-left: 100px;
     padding: 20px;

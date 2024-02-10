@@ -29,12 +29,9 @@
     word-wrap: break-word;
 }
 
-
 .pagination-nav {
-    margin-top: auto;
+    margin-top: 150px;
     text-align: center;
-
-
 }
 
 .pagination li {

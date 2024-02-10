@@ -18,7 +18,7 @@ const DeviceForm = () => {
     const [editDeviceId, setEditDeviceId] = useState(null);
 
     const validateInput = (input) => {
-        return input?.length > 1 && input?.length <= 50;
+        return input?.length > 0 && input?.length <= 50;
     };
 
     const sortData = (field) => {
@@ -31,7 +31,6 @@ const DeviceForm = () => {
             if (a[field] > b[field]) return order === 'asc' ? 1 : -1;
             return 0;
         });
-
         setDevices(sortedDevices);
     };
 
@@ -48,7 +47,7 @@ const DeviceForm = () => {
     }, []);
 
     useEffect(() => {
-        if (searchTerm.length >= 3) {
+        if (searchTerm.length >= 2) {
             const filteredDevices = devices.filter(device =>
                 device.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 device.manufacturer.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -112,6 +111,13 @@ const DeviceForm = () => {
                 setDevices(devices.filter(device => device.deviceID !== deviceId));
             } catch (error) {
                 console.error('Błąd podczas usuwania urządzenia:', error);
+
+                if (error.response && error.response.status === 403) {
+                    alert("Niestety urządzenie jest w użyciu, nie można usunąć.");
+                } else {
+                    // Możesz obsłużyć inne kody błędów lub ogólny błąd
+                    alert("Wystąpił błąd podczas usuwania urządzenia.");
+                }
             }
         }
     };

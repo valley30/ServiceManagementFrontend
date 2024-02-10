@@ -35,6 +35,7 @@ axios.interceptors.request.use((config) => {
 });
 
 function App() {
+
     const isTokenValid = (token) => {
         try {
             const decoded = jwtDecode(token);
@@ -96,13 +97,16 @@ function App() {
                 </div>
                 <Routes>
                     {!user ? (
+
                         <Route path="/" element={<LoginForm onLoginSuccess={handleLoginSuccess} onLoginFailure={handleLoginFailure} />} />
 
                     ) : (
+
                         <>
 
 
                             <Route path="/" element={<WelcomePage user={user} />} />
+                            <Route path="/logout" element={<Logout onLogout={handleLogout} />} />
                             {isAdmin && (
                                 <>
                                     <Route path="/devices" element={<DeviceForm />} />
@@ -122,9 +126,12 @@ function App() {
                             <Route path="/my-reports" element={<MyReports user={user} />} />
                             <Route path="/repairs" element={<Repairs />} />
                             <Route path="/reports" element={<Reports />} />
-                            <Route path="/logout" element={<Logout onLogout={handleLogout} />} />
+                            <Route path="/" element={<Logout onLogout={handleLogout} />} />
+
                         </>
+
                     )}
+
                 </Routes>
             </div>
         </Router>

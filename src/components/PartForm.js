@@ -113,7 +113,14 @@ const PartForm = () => {
                 await axios.delete(`http://localhost:8080/api/parts/delete/${partId}`);
                 setParts(parts.filter(part => part.partID !== partId));
             } catch (error) {
-                console.error('Błąd podczas usuwania części:', error);
+                console.error('Błąd podczas usuwania czesci:', error);
+
+                if (error.response && error.response.status === 403) {
+                    alert("Niestety część jest w użyciu, nie można usunąć.");
+                } else {
+                    // Możesz obsłużyć inne kody błędów lub ogólny błąd
+                    alert("Wystąpił błąd podczas usuwania część.");
+                }
             }
         }
     };

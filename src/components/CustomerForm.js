@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './form.css';
+import './Report.css';
 import {  faPersonCirclePlus,faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -66,7 +66,14 @@ const CustomerForm = () => {
                     const response = await axios.get('http://localhost:8080/api/customers');
                     setCustomers(response.data);
                 } catch (error) {
-                    console.error('Błąd podczas pobierania klientów:', error);
+                    console.error('Błąd podczas usuwania klienta:', error);
+
+                    if (error.response && error.response.status === 403) {
+                        alert("Niestety konto klienta jest w użyciu, nie można usunąć.");
+                    } else {
+                        // Możesz obsłużyć inne kody błędów lub ogólny błąd
+                        alert("Wystąpił błąd podczas usuwania klienta.");
+                    }
                 }
 
             };
@@ -280,11 +287,11 @@ const CustomerForm = () => {
             </table>
 
             {/* Paginacja */}
-            <nav>
+            <nav className="pagination-nav">
                 <ul className="pagination">
                     {pageNumbers.map(number => (
                         <li key={number} className="page-item">
-                            <button className="page-link" onClick={() => setCurrentPage(number)}>
+                            <button onClick={() => setCurrentPage(number)} className="page-link">
                                 {number}
                             </button>
                         </li>
